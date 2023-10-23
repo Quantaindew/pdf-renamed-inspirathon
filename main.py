@@ -4,8 +4,8 @@ import shutil
 
 def read_pdf(file_path):
     with open(file_path, 'rb') as file:
-        reader = PyPDF2.PdfFileReader(file)
-        content = ' '.join([reader.getPage(i).extractText() for i in range(reader.getNumPages())])
+        reader = PyPDF2.PdfReader(file)
+        content = ' '.join([reader.pages[i].extract_text() for i in range(len(reader.pages))])
     return content
 
 def remove_spaces_from_name(name):
@@ -26,4 +26,4 @@ def process_pdfs(directory, new_directory):
             rename_pdf(file_path, content, new_directory)
     print('Done!')
 
-process_pdfs('/pdfs', '/renamed')
+process_pdfs('./pdfs', './renamed')
